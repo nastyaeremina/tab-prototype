@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #fff;
+  color: #212B36;
+}
+
+/* Tab hover states */
+.tab-hover:hover {
+  background-color: #F8F9FB;
+}
