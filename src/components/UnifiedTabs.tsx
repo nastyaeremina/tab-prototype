@@ -6,10 +6,34 @@ interface Tab {
   disabled?: boolean
 }
 
+/**
+ * Leading inset of the tab bar — i.e. how far the first tab is indented from
+ * the bar's left edge. In Figma this is the "Spacing" variant property. It is
+ * NOT the gap between tabs (that is fixed — see TAB_GAP below).
+ */
+export type TabSpacing = 'none' | '8px' | '12px' | '16px' | '20px' | '24px'
+
+const SPACING_TO_PX: Record<TabSpacing, number> = {
+  none: 0,
+  '8px': 8,
+  '12px': 12,
+  '16px': 16,
+  '20px': 20,
+  '24px': 24,
+}
+
+/** Gap between adjacent tabs — fixed across every spacing variant in Figma. */
+const TAB_GAP = 12
+
 interface UnifiedTabsProps {
   tabs: Tab[]
   defaultActive?: string
   showOverflowDemo?: boolean
+  /**
+   * Leading inset of the bar (Figma "Spacing"). Indents the first tab from the
+   * left edge so its label can line up with content below. Defaults to 20px.
+   */
+  spacing?: TabSpacing
 }
 
 /**
@@ -20,7 +44,9 @@ interface UnifiedTabsProps {
  * - Container border: 1px solid #EFF1F4 (light gray)
  * - Text: #212B36 for both active and inactive (no color change on select)
  * - Font: 14px, weight 400, Inter
- * - Tab gap: 12px
+ * - Tab gap: fixed 12px (does NOT change with the spacing prop)
+ * - Each tab: 8px horizontal padding
+ * - Spacing: leading inset of the bar (none / 8 / 12 / 16 / 20 / 24px)
  * - Container height: 48px
  * - Overflow: "N more" dropdown
  */
@@ -28,6 +54,7 @@ export function UnifiedTabs({
   tabs,
   defaultActive,
   showOverflowDemo = false,
+  spacing = '20px',
 }: UnifiedTabsProps) {
   const [active, setActive] = useState(defaultActive ?? tabs[0]?.key ?? '')
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
@@ -57,10 +84,12 @@ export function UnifiedTabs({
       className="relative flex items-center"
       style={{
         height: 48,
-        padding: '0 20px',
+        // Spacing = leading inset only. No right padding (matches Figma).
+        paddingLeft: SPACING_TO_PX[spacing],
+        paddingRight: 0,
         borderTop: '1px solid #DFE1E4',
         borderBottom: '1px solid #EFF1F4',
-        gap: 12,
+        gap: TAB_GAP,
         overflow: 'visible',
       }}
     >

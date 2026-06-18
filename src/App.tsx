@@ -324,6 +324,24 @@ export default function App() {
                 <UnifiedTabs tabs={disabledTabs} />
               </div>
             </div>
+
+            <div>
+              <h3 className="text-sm font-medium m-0 mb-1">Spacing (leading inset)</h3>
+              <p className="text-xs text-gray-400 m-0 mb-3">
+                "Spacing" indents the first tab from the bar's left edge. The gap
+                <strong className="text-gray-500"> between</strong> tabs stays a fixed 12px — only the leading inset changes.
+              </p>
+              <div className="space-y-4">
+                {(['none', '8px', '12px', '16px', '20px', '24px'] as const).map((s) => (
+                  <div key={s} className="flex items-center gap-3">
+                    <span className="text-xs text-gray-400 w-20 shrink-0 text-right">Spacing {s}</span>
+                    <div className="flex-1 overflow-visible">
+                      <UnifiedTabs tabs={sampleTabs} spacing={s} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
@@ -336,7 +354,8 @@ export default function App() {
               ['Inactive text', '#212B36 (same — no color change)'],
               ['Disabled text', '#90959D'],
               ['Font', '14px, weight 400, Inter'],
-              ['Tab gap', '12px'],
+              ['Tab gap', '12px (fixed — does NOT change with spacing)'],
+              ['Spacing', 'Leading inset of the bar: none / 8 / 12 / 16 / 20 / 24px'],
               ['Height', '48px'],
               ['Border', '1px solid #EFF1F4'],
               ['Hover', 'Full-height bg #F8F9FB (standardized — currently inconsistent)'],
