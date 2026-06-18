@@ -139,25 +139,22 @@ export function UnifiedTabs({
             }}
           >
             {overflowTabs.length} more
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-            >
+            {/* Exact ChevronDown from the design system icon set */}
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
               <path
-                d="M3 4.5L6 7.5L9 4.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                fill="currentColor"
+                d="M10.011 14.69a.93.93 0 0 1-.669-.273l-7.496-7.5c-.323-.332-.41-.914 0-1.324s.977-.344 1.325 0 6.84 6.836 6.84 6.836l6.836-6.842c.32-.318.927-.39 1.32.002.337.338.416.913 0 1.33l-7.5 7.498a.9.9 0 0 1-.656.273"
               />
             </svg>
           </button>
           {overflowOpen && (
             <div
-              className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
-              style={{ minWidth: 140 }}
+              className="absolute top-full left-0 mt-1 bg-white rounded border py-1 z-10"
+              style={{
+                minWidth: 160,
+                borderColor: '#DFE1E4',
+                boxShadow: '0px 6px 20px 0px rgba(0, 0, 0, 0.07)',
+              }}
             >
               {overflowTabs.map((tab) => (
                 <button
@@ -166,14 +163,13 @@ export function UnifiedTabs({
                     setActive(tab.key)
                     setOverflowOpen(false)
                   }}
-                  className="w-full text-left border-none bg-transparent cursor-pointer hover:bg-gray-100 px-3 py-2"
+                  className="w-full text-left border-none bg-transparent cursor-pointer hover:bg-gray-100 px-3 flex items-center"
                   style={{
+                    height: 32,
                     fontSize: 14,
                     fontWeight: 400,
                     fontFamily: 'Inter, sans-serif',
                     color: '#212B36',
-                    backgroundColor:
-                      active === tab.key ? '#EFF1F4' : undefined,
                   }}
                 >
                   {tab.label}
